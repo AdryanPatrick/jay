@@ -73,7 +73,7 @@ function updateCounter() {
     document.getElementById('seconds').innerHTML = `<span>${seconds >= 0 ? seconds : 0}</span><small>Segundos</small>`;
 
     // Apenas atualiza o conteúdo do 'monthsDiv'
-    monthsDiv.innerHTML = `<span>${months >= 0 ? months : 0}</span><small>Mêses</small>`;
+    monthsDiv.innerHTML = `<span>${months >= 0 ? months : 0}</span><small>Meses</small>`;
 }
 
 setInterval(updateCounter, 1000);
