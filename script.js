@@ -22,24 +22,32 @@ const music = document.getElementById('background-music');
 const playButton = document.getElementById('play-button');
 let isPlaying = false;
 
-// Toca a música assim que a página carrega
-document.addEventListener('DOMContentLoaded', () => {
-    music.play()
-        .then(() => {
-            isPlaying = true;
-            // Atualiza o botão para o estado de "pause" inicialmente
-            playButton.innerHTML = `
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="#fff">
-                    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-                </svg>
-            `;
-        })
-        .catch(error => {
-            console.error('Erro ao tentar tocar a música no carregamento:', error);
-            // Se a reprodução automática falhar (geralmente por políticas do navegador),
-            // você pode manter o estado inicial do botão de "play" ou mostrar uma mensagem.
-        });
+// NÃO tocar a música automaticamente! Somente depois do clique.
+playButton.addEventListener('click', () => {
+    if (isPlaying) {
+        music.pause();
+        isPlaying = false;
+        playButton.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="#fff">
+                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14zm10-8l-6 4V7l6 4z"/>
+            </svg>
+        `;
+    } else {
+        music.play()
+            .then(() => {
+                isPlaying = true;
+                playButton.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="#fff">
+                        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                    </svg>
+                `;
+            })
+            .catch(error => {
+                console.error('Erro ao tentar tocar a música:', error);
+            });
+    }
 });
+
 
 playButton.addEventListener('click', () => {
     if (isPlaying) {
