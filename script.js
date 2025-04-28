@@ -24,8 +24,8 @@ const songs = [
         src: "images/tribalistas-velha-infância-_speed-up_.ogg"
     },
     {
-        title: "Música 2",
-        src: "images/sua-musica2.ogg"
+        title: "When you know you know",
+        src: "images/Lana Del Rey - Margaret (Best part TikTok version) [TubeRipper.cc].ogg"
     },
     {
         title: "Música 3",
