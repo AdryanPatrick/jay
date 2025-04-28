@@ -1,4 +1,4 @@
-/* Estilos gerais (já existentes, mas incluídos para contexto) */
+/* Estilos gerais */
 body {
     margin: 0;
     padding: 0;
@@ -78,14 +78,75 @@ body {
     background-color: #ff3366;
 }
 
-h1 {
-    font-size: 2.2rem;
-    color: #ff3366;
-    margin-bottom: 15px;
+/* Player de música compacto */
+.dots-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 5px;
 }
 
+.music-player {
+    margin: 0 auto;
+    padding: 0;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: auto;
+}
+
+.music-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.music-button {
+    background: none;
+    border: none;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+}
+
+#play-button {
+    width: 32px;
+    height: 32px;
+}
+
+.music-button:hover {
+    opacity: 1;
+}
+
+.music-button svg {
+    width: 100%;
+    height: 100%;
+}
+
+.music-info {
+    margin-top: 3px;
+    color: #fff;
+    font-size: 0.75rem;
+    opacity: 0.7;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 180px;
+}
+
+/* Contador */
 .together-info {
-    margin-top: 20px;
+    margin-top: 8px;
 }
 
 .together-info h2 {
@@ -142,6 +203,7 @@ h1 {
     color: #ffeded;
 }
 
+/* Corações */
 #hearts {
     position: fixed;
     top: 0;
@@ -152,85 +214,63 @@ h1 {
     z-index: -1;
 }
 
+/* QR Code */
 #qrcode {
     margin-top: 25px;
+    display: flex;
+    justify-content: center;
 }
 
-/* Media query para telas com largura máxima de 600px (celulares menores) */
+/* Media queries */
 @media (max-width: 600px) {
     .container {
-        padding: 20px 10px; /* Reduz o padding nas laterais em telas menores */
+        padding: 20px 10px;
     }
 
     .hero {
-        padding: 15px; /* Reduz o padding do bloco principal */
-        margin-bottom: 15px; /* Reduz a margem inferior */
-    }
-
-    h1 {
-        font-size: 1.8rem; /* Reduz ainda mais o tamanho do título */
-        margin-bottom: 10px;
-    }
-
-    #counter {
-        gap: 10px; /* Reduz o espaçamento entre os blocos de tempo */
-        margin: 15px 0; /* Reduz a margem superior e inferior */
-    }
-
-    .time {
-        min-width: 50px; /* Diminui a largura mínima */
-        max-width: 50px; /* Garante que continuem quadrados */
-        height: 50px; /* Diminui a altura */
-        padding: 10px; /* Reduz o padding interno */
-    }
-
-    .time span {
-        font-size: 1.5rem; /* Reduz o tamanho da fonte dos números */
-    }
-
-    .time small {
-        font-size: 0.8rem; /* Reduz o tamanho da fonte das descrições */
-    }
-
-    .together-info h2 {
-        font-size: 1.5rem; /* Reduz o tamanho do título "Juntos" */
-        margin-bottom: 8px;
-    }
-
-    .message {
-        font-size: 1rem; /* Reduz o tamanho da mensagem */
-        margin-top: 10px;
-    }
-
-    .start-date {
-        font-size: 0.8rem; /* Reduz o tamanho da fonte da data de início */
-        margin-top: 15px;
+        padding: 15px;
+        margin-bottom: 15px;
     }
 
     .carousel {
-        margin-bottom: 15px; /* Reduz a margem inferior do carrossel */
+        max-width: 100%;
     }
 
-    .dots {
-        margin-top: 10px; /* Reduz a margem superior dos pontos */
-        gap: 5px; /* Reduz o espaçamento entre os pontos */
+    .dots-container {
+        gap: 6px;
     }
-
-    .dot {
-        width: 10px; /* Diminui o tamanho dos pontos */
-        height: 10px;
+    
+    .music-button {
+        width: 24px;
+        height: 24px;
     }
-}
-
-/* Media query para telas ainda menores (ex: alguns celulares mais antigos) */
-@media (max-width: 375px) {
-    #counter {
-        flex-direction: column; /* Empilha os blocos de tempo em telas muito pequenas */
-        align-items: center; /* Centraliza os blocos empilhados */
+    
+    #play-button {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .music-info {
+        font-size: 0.7rem;
+        max-width: 150px;
+    }
+    
+    .together-info {
+        margin-top: 5px;
     }
 
     .time {
-        min-width: 80%; /* Ocupa mais largura em telas muito pequenas */
-        max-width: 80%;
+        min-width: 60px;
+        max-width: 60px;
+        height: 60px;
+        padding: 10px;
+    }
+
+    .time span {
+        font-size: 1.5rem;
+    }
+
+    .time small {
+        font-size: 0.8rem;
     }
 }

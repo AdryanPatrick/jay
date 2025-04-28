@@ -15,40 +15,97 @@ counterDiv.insertBefore(monthsDiv, yearsDiv.nextSibling);
 
 // Carrega a imagem do coração
 const heartImage = new Image();
-heartImage.src = 'images/coracao.png'; // Substitua 'heart.png' pelo nome do seu arquivo de imagem
+heartImage.src = 'images/coracao.png';
 
-// Música de fundo com botão de play
+// Lista de músicas
+const songs = [
+    {
+        title: "Velha Infância",
+        src: "images/tribalistas-velha-infância-_speed-up_.ogg"
+    },
+    {
+        title: "Música 2",
+        src: "images/sua-musica2.ogg"
+    },
+    {
+        title: "Música 3",
+        src: "images/sua-musica3.ogg"
+    }
+];
+
+// Player de música
 const music = document.getElementById('background-music');
-const playButton = document.getElementById('play-button');
+let currentSongIndex = 0;
 let isPlaying = false;
 
-// NÃO tocar a música automaticamente! Somente depois do clique.
+// Elementos da interface
+const playButton = document.getElementById('play-button');
+const prevButton = document.getElementById('prev-button');
+const nextButton = document.getElementById('next-button');
+const musicInfo = document.querySelector('.music-info');
+
+// Carrega a música atual
+function loadSong() {
+    music.src = songs[currentSongIndex].src;
+    musicInfo.textContent = songs[currentSongIndex].title;
+}
+
+// Toca a música
+function playSong() {
+    music.play()
+        .then(() => {
+            isPlaying = true;
+            playButton.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="#fff">
+                    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                </svg>
+            `;
+        })
+        .catch(error => {
+            console.error('Erro ao tentar tocar a música:', error);
+        });
+}
+
+// Pausa a música
+function pauseSong() {
+    music.pause();
+    isPlaying = false;
+    playButton.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="#fff">
+            <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14zm10-8l-6 4V7l6 4z"/>
+        </svg>
+    `;
+}
+
+// Próxima música
+function nextSong() {
+    currentSongIndex = (currentSongIndex + 1) % songs.length;
+    loadSong();
+    if (isPlaying) playSong();
+}
+
+// Música anterior
+function prevSong() {
+    currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+    loadSong();
+    if (isPlaying) playSong();
+}
+
+// Event listeners
 playButton.addEventListener('click', () => {
-    if (isPlaying) {
-        music.pause();
-        isPlaying = false;
-        playButton.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="#fff">
-                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14zm10-8l-6 4V7l6 4z"/>
-            </svg>
-        `;
-    } else {
-        music.play()
-            .then(() => {
-                isPlaying = true;
-                playButton.innerHTML = `
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="#fff">
-                        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-                    </svg>
-                `;
-            })
-            .catch(error => {
-                console.error('Erro ao tentar tocar a música:', error);
-            });
-    }
+    isPlaying ? pauseSong() : playSong();
 });
 
+nextButton.addEventListener('click', nextSong);
+prevButton.addEventListener('click', prevSong);
 
+// Quando a música termina, toca a próxima
+music.addEventListener('ended', nextSong);
+
+// Carrega a primeira música
+loadSong();
+
+// Contador de tempo
 function updateCounter() {
     const now = new Date();
     const diff = now - startDate;
@@ -60,7 +117,7 @@ function updateCounter() {
 
     const years = Math.floor(totalDays / 365.25);
     const remainingDaysAfterYears = totalDays % 365.25;
-    const months = Math.floor(remainingDaysAfterYears / 30.44); // Média de dias em um mês
+    const months = Math.floor(remainingDaysAfterYears / 30.44);
     const days = Math.floor(remainingDaysAfterYears % 30.44);
     const hours = Math.floor(totalHours % 24);
     const minutes = Math.floor(totalMinutes % 60);
@@ -71,8 +128,6 @@ function updateCounter() {
     document.getElementById('hours').innerHTML = `<span>${hours >= 0 ? hours : 0}</span><small>Horas</small>`;
     document.getElementById('minutes').innerHTML = `<span>${minutes >= 0 ? minutes : 0}</span><small>Minutos</small>`;
     document.getElementById('seconds').innerHTML = `<span>${seconds >= 0 ? seconds : 0}</span><small>Segundos</small>`;
-
-    // Apenas atualiza o conteúdo do 'monthsDiv'
     monthsDiv.innerHTML = `<span>${months >= 0 ? months : 0}</span><small>Meses</small>`;
 }
 
@@ -82,7 +137,6 @@ updateCounter();
 // Corações caindo
 const canvas = document.getElementById('hearts');
 const ctx = canvas.getContext('2d');
-
 let hearts = [];
 
 function resizeCanvas() {
@@ -95,9 +149,9 @@ window.addEventListener('resize', resizeCanvas);
 function Heart() {
     this.x = Math.random() * canvas.width;
     this.y = Math.random() * canvas.height;
-    this.size = Math.random() * 15 + 5; // Ajustei o tamanho base
+    this.size = Math.random() * 15 + 5;
     this.speedY = Math.random() * 1 + 0.5;
-    this.scale = Math.random() * 0.05 + 0.05; // Ajustei a escala para a imagem
+    this.scale = Math.random() * 0.05 + 0.05;
     this.rotation = Math.random() * Math.PI * 2;
 }
 
@@ -109,11 +163,7 @@ function handleHearts() {
         ctx.translate(heart.x, heart.y);
         ctx.scale(heart.scale, heart.scale);
         ctx.rotate(heart.rotation);
-
-        // Desenha a imagem do coração.
-        // O -heartImage.width / 2 e -heartImage.height / 2 centralizam a imagem na posição x, y.
         ctx.drawImage(heartImage, -heartImage.width / 2, -heartImage.height / 2);
-
         ctx.restore();
 
         if (heart.y > canvas.height) {
@@ -153,7 +203,6 @@ dots.forEach((dot, index) => {
     });
 });
 
-// Trocar automaticamente a cada 5 segundos
 setInterval(() => {
     currentSlide = (currentSlide + 1) % slides.length;
     showSlide(currentSlide);
