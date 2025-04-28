@@ -28,7 +28,7 @@ const songs = [
         src: "images/Lana Del Rey - Margaret (Best part TikTok version) [TubeRipper.cc].ogg"
     },
     {
-        title: "Música 3",
+        title: "Música 3.",
         src: "images/sua-musica3.ogg"
     }
 ];
