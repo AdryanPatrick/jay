@@ -25,11 +25,11 @@ const songs = [
     },
     {
         title: "When you know you know",
-        src: "images/Lana Del Rey - Margaret (Best part TikTok version) [TubeRipper.cc].ogg"
+        src: "music/Lana Del Rey - Margaret (Best part TikTok version) [TubeRipper.cc].ogg"
     },
     {
-        title: "Música 3.",
-        src: "images/sua-musica3.ogg"
+        title: "Cabelo de sol",
+        src: "music/Cabelo de Sol - Léo Foguete feat. Kaká e Pedrinho [TubeRipper.cc].ogg"
     }
 ];
 
