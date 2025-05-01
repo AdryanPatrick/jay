@@ -1,5 +1,5 @@
 // Data de início
-const startDate = new Date('2025-04-02T21:00:00');
+const startDate = new Date('2025-04-02T07:00:00');
 
 // Obtém a div 'years' e seu parent uma vez
 const yearsDiv = document.getElementById('years');
