@@ -15,7 +15,7 @@ counterDiv.insertBefore(monthsDiv, yearsDiv.nextSibling);
 
 // Carrega a imagem do coração
 const heartImage = new Image();
-heartImage.src = 'images/angelis.png';
+heartImage.src = 'images/coracao.png';
 
 // Lista de músicas
 const songs = [
